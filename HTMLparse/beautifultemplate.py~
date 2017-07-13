@@ -1,0 +1,17 @@
+import requests
+from bs4 import BeautifulSoup
+
+url = "http://www.yellowpages.com/search?search_terms=Coffee&geo_location_terms=Los+Angeles%2C+CA"
+
+r = requests.get(url)
+
+# r.content contains all the information available at the url in html format
+
+soup = BeautifulSoup(r.content)
+
+# method finds all html links on page
+
+links = soup.find_all("a")
+
+for link in links:
+    print "<a href='%s'>%s</a>" %(link.get("href"), link.text)
